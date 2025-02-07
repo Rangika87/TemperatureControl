@@ -13,11 +13,12 @@ public class TemperatureController {
     @Autowired
     private final TemperatueSrevice temperatueSrevice;
 
-    public TemperatureController(TemperatueSrevice temperatueSrevice) {
+    public TemperatureController(TemperatueSrevice temperatueSrevice)
+    {
         this.temperatueSrevice = temperatueSrevice;
     }
 
-
+    // to get all the sensor data
     @GetMapping(path="/sensorData/")
     public List<SensorData> getSensorData()
     {
@@ -25,19 +26,20 @@ public class TemperatureController {
 
     }
 
+    //to get the temperature in a given room no
     @GetMapping("/room/{roomNumber}/temperature")
-    public SensorData getTemperatureByRoom(@PathVariable Long roomNumber) {
-        // Calling the service method to fetch the temperature
-       // return "current temperature in room number  " + roomNumber+ " is "+temperatueSrevice.getRoomTemperature(roomNumber);
+    public SensorData getTemperatureByRoom(@PathVariable Long roomNumber)
+    {
 
          return temperatueSrevice.getRoomTemperature(roomNumber);
 
     }
 
-
+    // to control the temperature captured by room id and current temperature
     @PostMapping("/sensor")
-    public String controlTemperature (@RequestBody TemperatureReading reading) {
-//         RoomService.turnOnHeating(roomId);
+    public String controlTemperature (@RequestBody TemperatureReading reading)
+    {
+
         return temperatueSrevice.controlTemperature(reading);
 
     }

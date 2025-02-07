@@ -16,7 +16,7 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-
+    // to get all rooms
     @GetMapping(path="/roomDetails/")
     public List<Room> getAllRoomDetails()
     {

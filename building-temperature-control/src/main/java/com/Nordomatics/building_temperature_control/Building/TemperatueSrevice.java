@@ -11,26 +11,19 @@ import java.util.Optional;
 @Service
 public class TemperatueSrevice {
 
-//    @Autowired
-//    private final TemperatureRepository temperatureRepository;
-//
-//    public TemperatueSrevice(TemperatureRepository temperatureRepository) {
-//        this.temperatureRepository = temperatureRepository;
-//    }
-//
-//    @Autowired
-//    private static  RoomRepository roomRepository;
 
     private final TemperatureRepository temperatureRepository;
     private final RoomRepository roomRepository   ;
 
     @Autowired
-    public TemperatueSrevice(TemperatureRepository temperatureRepository,RoomRepository roomRepository) {
+    public TemperatueSrevice(TemperatureRepository temperatureRepository,RoomRepository roomRepository)
+    {
         this.temperatureRepository = temperatureRepository;
         this.roomRepository = roomRepository;
     }
 
-    public String controlTemperature(TemperatureReading reading) {
+    public String controlTemperature(TemperatureReading reading)
+    {
 
         // to save data in sensor_data
         SensorData sensorData = new SensorData(reading.roomId, reading.currentTemperature);
@@ -41,7 +34,8 @@ public class TemperatueSrevice {
             double desiredTemperature = room.get().getDesiredTemperature();
             double currentTemperature = reading.currentTemperature;
 
-            if (currentTemperature < desiredTemperature) {
+            if (currentTemperature < desiredTemperature)
+            {
                 // Simulate sending a command to the heating system
                 System.out.println("Heating system activated for room: " + reading.roomId);
                 // Assume gradual heating effect
@@ -63,7 +57,9 @@ public class TemperatueSrevice {
             {
                 return "No temperature control needed";
             }
-        } else {
+        }
+        else
+        {
             System.out.println("Room not found: " + reading.roomId);
             return "Room not found: " + reading.roomId;
         }
@@ -71,14 +67,14 @@ public class TemperatueSrevice {
 
 
 
-    public List<SensorData> getSensorData() {
+    public List<SensorData> getSensorData()
+    {
         return temperatureRepository.findAll();
     }
 
 
-    public SensorData getRoomTemperature(Long roomNo) {
-
-
+    public SensorData getRoomTemperature(Long roomNo)
+    {
         Optional<SensorData>  roomTemperature= temperatureRepository.findTopByRoomIdOrderByIdDesc(roomNo);
         return roomTemperature.get();
     }
